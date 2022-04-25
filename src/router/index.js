@@ -1,23 +1,54 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from "vue-router";
+
+import LoginView from "../views/LoginView.vue";
+
+import MenuIndex from "../views/Menus/Index.vue";
+import MenuCreate from "../views/Menus/Create.vue";
+import MenuEdit from "../views/Menus/Edit.vue";
+import CategoryEdit from "../views/Categories/Edit.vue";
+import auth from "../middleware/auth";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }
-  ]
-})
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes: [
+        {
+            path: "/",
+            name: "login",
+            component: () => LoginView,
+        },
+        {
+            path: "/menus",
+            name: "menu",
+            component: () => MenuIndex,
+            beforeEnter: (to, from, next) => {
+                auth(to, from, next);
+            },
+        },
+        {
+            path: "/menus/nuevo",
+            name: "MenuCreate",
+            component: () => MenuCreate,
+            beforeEnter: (to, from, next) => {
+                auth(to, from, next);
+            },
+        },
+        {
+            path: "/menus/:id",
+            name: "MenuEdit",
+            component: MenuEdit,
+            beforeEnter: (to, from, next) => {
+                auth(to, from, next);
+            },
+        },
+        {
+            path: "/menus/:id/categories/:category_id",
+            name: "CategoryEdit",
+            component: CategoryEdit,
+            beforeEnter: (to, from, next) => {
+                auth(to, from, next);
+            },
+        },
+    ],
+});
 
-export default router
+export default router;
