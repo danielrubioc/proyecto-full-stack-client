@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import LoginView from "../views/LoginView.vue";
+import RegisterView from "../views/RegisterView.vue";
+/**/
+import DigitalMenu from "../views/DigitalMenu.vue";
 
 import MenuIndex from "../views/Menus/Index.vue";
 import MenuCreate from "../views/Menus/Create.vue";
@@ -15,6 +18,16 @@ const router = createRouter({
             path: "/",
             name: "login",
             component: () => LoginView,
+        },
+        {
+            path: "/digital-menus/:menu_id",
+            name: "menuDigital",
+            component: () => DigitalMenu,
+        },
+        {
+            path: "/register",
+            name: "register",
+            component: () => RegisterView,
         },
         {
             path: "/menus",

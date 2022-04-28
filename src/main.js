@@ -8,6 +8,7 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
 //axios.defaults.withCredentials = true;
+//axios.defaults.baseURL = "https://menu-digital-api.herokuapp.com/api/v1";
 axios.defaults.baseURL = "http://localhost:5000/api/v1";
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
