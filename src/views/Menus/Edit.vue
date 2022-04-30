@@ -37,6 +37,13 @@
                         <button type="submit" class="btn btn-primary">
                             Actualizar
                         </button>
+
+                        <RouterLink
+                            :to="`/digital-menus/${this.$route.params.id}/design/1`"
+                            class="btn btn-success"
+                        >
+                            Ver Menú Digital
+                        </RouterLink>
                     </div>
                 </form>
             </div>
@@ -52,6 +59,7 @@ import TableCategories from "@/components/TableCategories.vue";
 import Breadcrumb from "@/components/Breadcrumb.vue";
 import ModalDelete from "@/components/ModalDelete.vue";
 import axios from "axios";
+import { RouterLink } from "vue-router";
 
 export default {
     props: ["foo"],
@@ -59,6 +67,7 @@ export default {
         TableCategories,
         Breadcrumb,
         ModalDelete,
+        RouterLink,
     },
     data() {
         return {

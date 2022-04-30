@@ -1,8 +1,12 @@
 <template>
-    <main>
-        <Design1 :products="products" :categories="categories" />
-        <Design2 :products="products" :categories="categories" />
-    </main>
+    <div>
+        <main class="menu1" v-if="this.$route.params.desing_id == 1">
+            <Design1 :products="products" :categories="categories" />
+        </main>
+        <main class="menu2" v-if="this.$route.params.desing_id == 2">
+            <Design2 :products="products" :categories="categories" />
+        </main>
+    </div>
 </template>
 
 <script>

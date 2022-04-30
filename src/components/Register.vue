@@ -1,7 +1,8 @@
 <template>
     <div class="container-fluid min-vh-100 d-flex">
         <div class="row align-items-center w-100">
-            <div class="card p-5" style="width: 23rem; margin: 0 auto">
+            <div class="card p-5" style="width: 30rem; margin: 0 auto">
+                <h1 class="text-center">Completa los datos</h1>
                 <form v-on:submit.prevent="login">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label"
@@ -11,7 +12,7 @@
                             type="text"
                             class="form-control"
                             aria-describedby="emailHelp"
-                            v-model="name"
+                            v-model="userRegister.name"
                         />
                     </div>
                     <div class="mb-3">
@@ -22,7 +23,7 @@
                             type="email"
                             class="form-control"
                             aria-describedby="emailHelp"
-                            v-model="email"
+                            v-model="userRegister.email"
                         />
                     </div>
                     <div class="mb-3">
@@ -32,7 +33,7 @@
                         <input
                             type="password"
                             class="form-control"
-                            v-model="password"
+                            v-model="userRegister.password"
                         />
                     </div>
                     <div class="mb-3">
@@ -42,12 +43,19 @@
                         <input
                             type="password"
                             class="form-control"
-                            v-model="password_confirm"
+                            v-model="userRegister.confirmPassword"
                         />
                     </div>
-                    <button type="submit" class="btn btn-primary mx-auto">
-                        Registrarse
-                    </button>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-especial mx-auto">
+                            Registrarse
+                        </button>
+                    </div>
+                    <div class="text-end">
+                        <RouterLink to="/login" class="login">
+                            Ingresa
+                        </RouterLink>
+                    </div>
                 </form>
             </div>
         </div>
@@ -59,23 +67,22 @@ import axios from "axios";
 export default {
     data: () => ({
         info: null,
-        name: "test@test.cl",
-        email: "test@test.cl",
-        password: "test@test.cl",
-        password_confirm: "test@test.cl",
+        userRegister: {
+            name: "test@test.cl",
+            email: "test@test.cl",
+            password: "test@test.cl",
+            confirmPassword: "test@test.cl",
+        },
         error: null,
         success: false,
     }),
     methods: {
         login: async function () {
-            const formData = new FormData();
-            formData.append("name", this.name);
-            formData.append("email", this.email);
-            formData.append("password", this.password);
-            formData.append("confirmPassword", this.password_confirm);
-
             try {
-                const { data } = await axios.post("register", formData);
+                const { data } = await axios.post(
+                    "register",
+                    this.userRegister
+                );
                 console.log("error", data);
             } catch (error) {
                 console.log("error", error);
@@ -85,4 +92,36 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+h1 {
+    font-family: "Barlow";
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.container-fluid.min-vh-100.d-flex {
+    background-image: url(menu_pattern3-min.png);
+    background-size: contain;
+}
+.btn-especial {
+    font-family: "Permanent Marker", cursive;
+    color: #fff;
+    font-size: 25px;
+    background: #54595f;
+    border-radius: 30px;
+}
+.btn-especial:hover {
+    color: #fff;
+    background: #333539;
+}
+label.form-label {
+    font-family: "Barlow";
+    font-weight: 700;
+}
+.login {
+    color: #e7272d;
+    font-family: "Permanent Marker", Sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    text-decoration: none;
+}
+</style>

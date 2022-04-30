@@ -6,10 +6,10 @@ import store from "./store";
 import axios from "axios";
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
+import "bootstrap/dist/js/bootstrap.js";
 
 //axios.defaults.withCredentials = true;
-//axios.defaults.baseURL = "https://menu-digital-api.herokuapp.com/api/v1";
-axios.defaults.baseURL = "http://localhost:5000/api/v1";
+axios.defaults.baseURL = import.meta.env.VITE_API_ENDPOINT;
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
 axios.interceptors.request.use((request) => {
@@ -41,4 +41,3 @@ app.use(store);
 app.use(VueSweetalert2);
 
 app.mount("#app");
-import "bootstrap/dist/js/bootstrap.js";

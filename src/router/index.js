@@ -1,38 +1,48 @@
 import { createRouter, createWebHistory } from "vue-router";
-
+import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
-/**/
 import DigitalMenu from "../views/DigitalMenu.vue";
-
 import MenuIndex from "../views/Menus/Index.vue";
 import MenuCreate from "../views/Menus/Create.vue";
 import MenuEdit from "../views/Menus/Edit.vue";
 import CategoryEdit from "../views/Categories/Edit.vue";
 import auth from "../middleware/auth";
+import loggedIn from "../middleware/isLoged";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: "/",
-            name: "login",
-            component: () => LoginView,
+            name: "home",
+            component: HomeView,
+            beforeEnter: (to, from, next) => {
+                loggedIn(to, from, next);
+            },
         },
         {
-            path: "/digital-menus/:menu_id",
+            path: "/login",
+            name: "login",
+            component: LoginView,
+            beforeEnter: (to, from, next) => {
+                loggedIn(to, from, next);
+            },
+        },
+        {
+            path: "/digital-menus/:menu_id/design/:desing_id",
             name: "menuDigital",
-            component: () => DigitalMenu,
+            component: DigitalMenu,
         },
         {
             path: "/register",
             name: "register",
-            component: () => RegisterView,
+            component: RegisterView,
         },
         {
             path: "/menus",
             name: "menu",
-            component: () => MenuIndex,
+            component: MenuIndex,
             beforeEnter: (to, from, next) => {
                 auth(to, from, next);
             },
@@ -40,7 +50,7 @@ const router = createRouter({
         {
             path: "/menus/nuevo",
             name: "MenuCreate",
-            component: () => MenuCreate,
+            component: MenuCreate,
             beforeEnter: (to, from, next) => {
                 auth(to, from, next);
             },
