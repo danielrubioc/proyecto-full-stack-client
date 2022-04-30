@@ -4,6 +4,7 @@
             <div class="card p-5" style="width: 30rem; margin: 0 auto">
                 <h1 class="text-center">Completa los datos</h1>
                 <form v-on:submit.prevent="login">
+                    <div id="errors"></div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label"
                             >Name</label
@@ -68,24 +69,32 @@ export default {
     data: () => ({
         info: null,
         userRegister: {
-            name: "test@test.cl",
-            email: "test@test.cl",
-            password: "test@test.cl",
-            confirmPassword: "test@test.cl",
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
         },
         error: null,
         success: false,
     }),
     methods: {
         login: async function () {
+            const divErrors = document.getElementById("errors");
+            divErrors.innerHTML = "";
             try {
                 const { data } = await axios.post(
                     "register",
                     this.userRegister
                 );
-                console.log("error", data);
+                this.$swal("Registrado con éxito!");
+                this.$router.push("/login");
             } catch (error) {
-                console.log("error", error);
+                const errorMessage = error.response.data.msg.split(",");
+                let string = "";
+                errorMessage.forEach((error) => {
+                    string += `<p>${error}</p>`;
+                });
+                return (divErrors.innerHTML = string);
             }
         },
     },
@@ -97,10 +106,6 @@ h1 {
     font-family: "Barlow";
     font-weight: 900;
     text-transform: uppercase;
-}
-.container-fluid.min-vh-100.d-flex {
-    background-image: url(menu_pattern3-min.png);
-    background-size: contain;
 }
 .btn-especial {
     font-family: "Permanent Marker", cursive;

@@ -29,10 +29,6 @@ h1.text-center {
     font-weight: 900;
     text-transform: uppercase;
 }
-.container-fluid.min-vh-100.d-flex {
-    background-image: url(menu_pattern3-min.png);
-    background-size: contain;
-}
 .btn-especial {
     font-family: "Permanent Marker", cursive;
     color: #fff;

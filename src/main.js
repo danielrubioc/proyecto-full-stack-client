@@ -22,15 +22,13 @@ axios.interceptors.request.use((request) => {
 });
 
 axios.interceptors.response.use(
-    (response) => {
-        return response;
-    },
+    (response) => response,
     (error) => {
         if (error.response.status === 401) {
             store.dispatch("logout");
             router.push("/");
         }
-        return error;
+        return Promise.reject(error);
     }
 );
 

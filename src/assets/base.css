@@ -80,10 +80,6 @@ h1 {
     font-weight: 900;
     text-transform: uppercase;
 }
-.container-fluid.min-vh-100.d-flex {
-    background-image: url(menu_pattern3-min.png);
-    background-size: contain;
-}
 .btn-especial {
     font-family: "Permanent Marker", cursive;
     color: #fff;
@@ -105,4 +101,11 @@ label.form-label {
     font-size: 24px;
     font-weight: 400;
     text-decoration: none;
+}
+div#app {
+    background-image: url(../assets/menu_pattern3-min.png);
+    background-size: contain;
+}
+main {
+    min-height: 85vh;
 }

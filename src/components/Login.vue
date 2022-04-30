@@ -4,6 +4,7 @@
             <div class="card p-5" style="width: 30rem; margin: 0 auto">
                 <h1 class="text-center">Ingresa</h1>
                 <form v-on:submit.prevent="login">
+                    <div id="errors"></div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label"
                             >Email</label
@@ -54,11 +55,18 @@ export default {
     }),
     methods: {
         login: async function () {
+            const divErrors = document.getElementById("errors");
+            divErrors.innerHTML = "";
             try {
                 await this.$store.dispatch("login", this.user);
                 this.$router.push("/menus");
             } catch (error) {
-                console.log("error", error);
+                const errorMessage = error.msg.split(",");
+                let string = "";
+                errorMessage.forEach((error) => {
+                    string += `<p>${error}</p>`;
+                });
+                return (divErrors.innerHTML = string);
             }
         },
     },
@@ -70,10 +78,6 @@ h1 {
     font-family: "Barlow";
     font-weight: 900;
     text-transform: uppercase;
-}
-.container-fluid.min-vh-100.d-flex {
-    background-image: url(menu_pattern3-min.png);
-    background-size: contain;
 }
 .btn-especial {
     font-family: "Permanent Marker", cursive;

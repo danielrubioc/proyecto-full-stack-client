@@ -10,4 +10,7 @@ import NavBar from "@/components/NavBar.vue";
 
 <style>
 @import "@/assets/base.css";
+div#errors {
+    color: #e7272d;
+}
 </style>

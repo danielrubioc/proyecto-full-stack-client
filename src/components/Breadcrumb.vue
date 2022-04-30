@@ -7,7 +7,10 @@
                     :key="k"
                     class="breadcrumb-item"
                 >
-                    <RouterLink :to="li.url" class="nav-link active">
+                    <RouterLink
+                        :to="li.url"
+                        class="nav-link nav-breadcrumbs active"
+                    >
                         {{ li.name }}</RouterLink
                     >
                 </li>
@@ -31,5 +34,19 @@ export default {
 <style scoped>
 .breadcrumb-item + .breadcrumb-item::before {
     margin-top: 10px;
+}
+.nav-breadcrumbs {
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out;
+    font-family: "Permanent Marker", cursive;
+    color: #fff;
+    background: #e7272d;
+}
+.nav-breadcrumbs:hover,
+.nav-breadcrumbs:focus,
+.nav-breadcrumbs:visited {
+    color: #fff;
+    background: #d4242a;
 }
 </style>
