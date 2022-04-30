@@ -109,3 +109,21 @@ div#app {
 main {
     min-height: 85vh;
 }
+.btn-success {
+    border-radius: 35px;
+}
+button.swal2-confirm.swal2-styled {
+    border-radius: 35px;
+    padding: 10px 22px;
+    background: #e7272d;
+    border: none;
+    box-shadow: none;
+}
+.swal2-popup {
+    background: #212529 !important;
+    color: #ffffff !important;
+}
+.swal2-title {
+    text-transform: uppercase;
+    font-family: "Barlow";
+}

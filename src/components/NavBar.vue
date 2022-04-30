@@ -62,4 +62,7 @@ a.nav-link.btn-sesion {
     font-family: "Barlow";
     cursor: pointer;
 }
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff;
+}
 </style>

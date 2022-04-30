@@ -66,3 +66,13 @@ export default {
     },
 };
 </script>
+<style scoped>
+.btn-danger {
+    font-size: 20px;
+    font-weight: 400;
+    font-family: "Barlow";
+    text-transform: uppercase;
+    border-radius: 35px;
+    padding: 5px 20px;
+}
+</style>
