@@ -6,7 +6,7 @@
             data-bs-toggle="modal"
             data-bs-target="#createCategories"
         >
-            Crear
+            Nueva Categoría
         </button>
         <!-- Modal -->
         <div
@@ -20,7 +20,7 @@
         >
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <form class="p-1" v-on:submit.prevent="createCategory">
+                    <form v-on:submit.prevent="createCategory">
                         <div class="modal-header">
                             <h5 class="modal-title" id="staticBackdropLabel">
                                 Nueva Categoría
@@ -128,3 +128,27 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.btn-success {
+    font-size: 20px;
+    font-weight: 400;
+    font-family: "Barlow";
+    text-transform: uppercase;
+    border-radius: 35px;
+    padding: 5px 20px;
+}
+.modal-header {
+    background: black;
+    color: white;
+    text-transform: uppercase;
+}
+.modal-footer .btn.btn-secondary,
+.modal-footer .btn.btn-primary {
+    border-radius: 35px;
+    padding: 6px 20px;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-family: "Barlow";
+}
+</style>

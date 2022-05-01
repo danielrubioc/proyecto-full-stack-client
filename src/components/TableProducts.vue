@@ -1,8 +1,8 @@
 <template>
     <div class="container">
         <div class="card shadow mb-4">
-            <div class="card-header py-3 d-flex justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">
+            <div class="card-header py-5 d-flex justify-content-between">
+                <h6 class="m-0 font-weight-bold text-light">
                     Listado de Productos
                 </h6>
                 <ModalCreateProduct @create-confirm="getProducts" />
@@ -58,12 +58,16 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td class="d-flex flex-row-reverse">
-                                        <ModalEditProduct
-                                            :product-edit="product"
-                                            @create-confirm="getProducts"
-                                        />
-
+                                    <td>
+                                        <button
+                                            type="button"
+                                            class="btn btn-info"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editProduct"
+                                            @click="setData(product)"
+                                        >
+                                            Ver Detalle
+                                        </button>
                                         <ModalProductDelete
                                             @delete-product-confirm="
                                                 deleteProduct(product.id)
@@ -77,16 +81,19 @@
                 </div>
             </div>
         </div>
+        <ModalEditProduct
+            :product-edit="product"
+            @create-confirm="getProducts"
+        />
     </div>
 </template>
 
 <script>
 import axios from "axios";
 import moment from "moment";
-import ModalCreateProduct from "@/components/ModalCreateProduct.vue";
 import ModalEditProduct from "@/components/ModalEditProduct.vue";
+import ModalCreateProduct from "@/components/ModalCreateProduct.vue";
 import ModalProductDelete from "@/components/ModalProductDelete.vue";
-
 export default {
     components: {
         ModalCreateProduct,
@@ -95,8 +102,15 @@ export default {
     },
     data() {
         return {
-            count: 0,
             products: [],
+            product: {
+                id: "",
+                name: "",
+                description: "",
+                normal_price: "",
+                discount_price: "",
+                visible: "",
+            },
         };
     },
     async mounted() {
@@ -106,13 +120,9 @@ export default {
         getProducts: async function () {
             try {
                 const { data } = await axios.get(
-                    "menus/" +
-                        this.$route.params.id +
-                        "/categories/" +
-                        this.$route.params.category_id +
-                        "/products"
+                    `menus/${this.$route.params.id}/categories/${this.$route.params.category_id}/products`
                 );
-                const { data: products } = await data;
+                const { data: products } = data;
                 this.products = products;
             } catch (error) {
                 console.log(error);
@@ -124,15 +134,10 @@ export default {
         deleteProduct: async function (product_id) {
             try {
                 const { data } = await axios.delete(
-                    "/menus/" +
-                        this.$route.params.id +
-                        "/categories/" +
-                        this.$route.params.category_id +
-                        "/products/" +
-                        product_id
+                    `/menus/${this.$route.params.id}/categories/${this.$route.params.category_id}/products/${product_id}`
                 );
                 if (data.ok) {
-                    this.$swal("Actualizado con Éxito");
+                    this.$swal("Eliminado con Éxito");
                     this.getProducts();
                 } else {
                     this.$swal(data.msg);
@@ -141,31 +146,15 @@ export default {
                 console.log(error);
             }
         },
-
+        setData: function (data) {
+            this.product = data;
+        },
         statusProduct: async function (key) {
             try {
                 this.products[key].visible = !this.products[key].visible;
-
-                const formData = new FormData();
-                formData.append("name", this.products[key].name);
-                formData.append("description", this.products[key].description);
-                formData.append(
-                    "normal_price",
-                    this.products[key].normal_price
-                );
-                formData.append(
-                    "discount_price",
-                    this.products[key].discount_price
-                );
-                formData.append("visible", this.products[key].visible);
                 const { data } = await axios.put(
-                    "/menus/" +
-                        this.$route.params.id +
-                        "/categories/" +
-                        this.$route.params.category_id +
-                        "/products/" +
-                        this.products[key].id,
-                    formData
+                    `/menus/${this.$route.params.id}/categories/${this.$route.params.category_id}/products/${this.products[key].id}`,
+                    this.products[key]
                 );
                 if (data.ok) {
                     this.$swal("Eliminado con Éxito");
@@ -182,8 +171,64 @@ export default {
 </script>
 
 <style scoped>
-thead.table-es {
-    background: #f3f6f9 !important;
-    color: black;
+.table-es {
+    background: #ffffff !important;
+    color: #e7272d;
+    text-transform: uppercase;
+    font-family: "Barlow";
+}
+.btn-red {
+    background: #e7272d;
+    color: white;
+    text-transform: uppercase;
+    font-family: "Barlow";
+    border-radius: 30px;
+}
+.btn-red:hover,
+.btn-red:focus {
+    background: #bc2025;
+    color: white;
+    text-transform: uppercase;
+    font-family: "Barlow";
+}
+.card {
+    border: none;
+    background-image: url(https://demo.themewinter.com/wp/gloreya/wp-content/uploads/2019/10/ingredient_bg-1.png);
+    background-size: 100% 100%;
+}
+h6 {
+    font-family: "Barlow";
+    text-transform: uppercase;
+    font-size: 30px;
+}
+tr.odd {
+    color: white;
+    font-family: "Barlow";
+    text-transform: uppercase;
+    font-size: 20px;
+}
+tr.odd:hover {
+    background: #1a2026;
+    color: white;
+}
+.table-hover > tbody > tr:hover > * {
+    color: white;
+}
+a.btn.btn-success {
+    /* color: #e7272d; */
+    /* font-family: "Permanent Marker", Sans-serif; */
+    font-size: 20px;
+    font-weight: 400;
+    font-family: "Barlow";
+    text-transform: uppercase;
+}
+.btn-success {
+    border-radius: 35px;
+}
+.btn.btn-info {
+    color: white;
+    text-transform: uppercase;
+    font-family: "Barlow";
+    border-radius: 30px;
 }
 </style>

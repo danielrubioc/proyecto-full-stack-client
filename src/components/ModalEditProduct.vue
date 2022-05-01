@@ -1,13 +1,5 @@
 <template>
     <div>
-        <button
-            type="button"
-            class="btn btn-info"
-            data-bs-toggle="modal"
-            data-bs-target="#editProduct"
-        >
-            Ver Detalle
-        </button>
         <!-- Modal -->
         <div
             class="modal fade"
@@ -20,7 +12,7 @@
         >
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <form class="p-1" v-on:submit.prevent="editProduct">
+                    <form v-on:submit.prevent="editProduct">
                         <div class="modal-header">
                             <h5 class="modal-title" id="staticBackdropLabel">
                                 Actualizar Producto
@@ -40,8 +32,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="inputNombre"
-                                    v-model="inputName"
+                                    v-model="productEdit.name"
                                     required
                                 />
                             </div>
@@ -52,8 +43,7 @@
                                 <textarea
                                     type="text"
                                     class="form-control"
-                                    v-model="inputDescription"
-                                    id="inputDescription"
+                                    v-model="productEdit.description"
                                     required
                                 />
                             </div>
@@ -66,8 +56,7 @@
                                 <input
                                     type="number"
                                     class="form-control"
-                                    id="inputPrecioNormal"
-                                    v-model="inputPrice"
+                                    v-model="productEdit.normal_price"
                                     required
                                 />
                             </div>
@@ -80,26 +69,10 @@
                                 <input
                                     type="number"
                                     class="form-control"
-                                    id="inputPrecioDescuento"
-                                    v-model="inputPriceDiscto"
+                                    v-model="productEdit.discount_price"
                                     required
                                 />
                             </div>
-                            <!-- <div class="mb-3">
-                                <label
-                                    for="inputPrecioDescuento"
-                                    class="form-label"
-                                    >Imagen</label
-                                >
-                                <input
-                                    class="form-control"
-                                    id="inputPrecioDescuento"
-                                    type="file"
-                                    ref="myFile"
-                                    @change="previewFiles"
-                                    required
-                                />
-                            </div> -->
                         </div>
                         <div class="modal-footer">
                             <button
@@ -114,8 +87,6 @@
                                 Actualizar
                             </button>
                         </div>
-                        {{ productEdit }}
-                        {{ inputName }}
                     </form>
                 </div>
             </div>
@@ -129,37 +100,21 @@ export default {
     props: ["productEdit"],
     data() {
         return {
-            inputName: this.productEdit.name,
-            inputDescription: this.productEdit.description,
-            inputPrice: this.productEdit.normal_price,
-            inputPriceDiscto: this.productEdit.discount_price,
             theModal: null,
         };
     },
     methods: {
         editProduct: async function () {
-            const { id, category_id } = this.$route.params;
-            const formData = new FormData();
-            formData.append("name", this.inputName);
-            formData.append("description", this.inputDescription);
-            formData.append("normal_price", this.inputPrice);
-            formData.append("discount_price", this.inputPriceDiscto);
-            formData.append("visible", true);
-
             try {
-                const { data } = await axios.post(
-                    "menus/" + id + "/categories/" + category_id + "/products",
-                    formData
+                const { data } = await axios.put(
+                    `menus/${this.$route.params.id}/categories/${this.$route.params.category_id}/products/${this.productEdit.id}`,
+                    this.productEdit
                 );
                 this.$emit("createConfirm", true);
-                console.log(data);
+                document.getElementById("closeModalEdit").click();
             } catch (error) {
                 console.log(error);
             }
-            /*      
-            this.catName = "";
-            this.catDescription = "";
-            document.getElementById("closeModalEdit").click(); */
         },
     },
 };

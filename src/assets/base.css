@@ -127,3 +127,18 @@ button.swal2-confirm.swal2-styled {
     text-transform: uppercase;
     font-family: "Barlow";
 }
+.modal-footer .btn.btn-secondary,
+.modal-footer .btn.btn-primary {
+    border-radius: 35px;
+    padding: 6px 20px;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-family: "Barlow";
+}
+.modal-header {
+    background: black;
+}
+
+.modal-dialog.modal-dialog-centered .modal-body {
+    color: black;
+}

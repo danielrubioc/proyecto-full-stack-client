@@ -6,7 +6,7 @@
             data-bs-toggle="modal"
             data-bs-target="#staticBackdropProduct"
         >
-            Eliminar
+            Eliminar Producto
         </button>
         <!-- Modal -->
         <div
@@ -22,7 +22,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropProductLabel">
-                            Estas a punto de eliminar un registro
+                            Estas a punto de eliminar un producto
                         </h5>
                         <button
                             type="button"
@@ -66,3 +66,12 @@ export default {
     },
 };
 </script>
+<style scoped>
+.btn.btn-danger {
+    background: #e7272d;
+    color: white;
+    text-transform: uppercase;
+    font-family: "Barlow";
+    border-radius: 30px;
+}
+</style>

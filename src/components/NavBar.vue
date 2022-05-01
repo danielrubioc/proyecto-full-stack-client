@@ -64,5 +64,7 @@ a.nav-link.btn-sesion {
 }
 .navbar-dark .navbar-nav .nav-link {
     color: #fff;
+    font-family: "Barlow";
+    text-transform: uppercase;
 }
 </style>

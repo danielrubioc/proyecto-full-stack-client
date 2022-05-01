@@ -30,7 +30,7 @@
                                         {{ menu.name }}
                                     </td>
                                     <td>{{ getHumanDate(menu.create_at) }}</td>
-                                    <td class="d-flex flex-row-reverse">
+                                    <td>
                                         <RouterLink
                                             :to="'/menus/' + menu.id"
                                             class="btn btn-red"
